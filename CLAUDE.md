@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Language Preference
+
+このリポジトリでの作業時は、すべてのやりとりを日本語で行ってください。
+
 ## Project Overview
 
 This is a basic practice generator application. The repository is currently empty and awaiting initial development.
