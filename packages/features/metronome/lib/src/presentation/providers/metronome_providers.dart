@@ -1,3 +1,4 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:core/core.dart';
 import '../../data/datasources/metronome_audio_datasource.dart';
@@ -7,45 +8,54 @@ import '../../domain/usecases/start_metronome_usecase.dart';
 import '../../domain/usecases/stop_metronome_usecase.dart';
 import '../../domain/usecases/change_bpm_usecase.dart';
 
+part 'metronome_providers.g.dart';
+
 // DataSource Provider
-final metronomeAudioDataSourceProvider = Provider<MetronomeAudioDataSource>((ref) {
+@riverpod
+MetronomeAudioDataSource metronomeAudioDataSource(Ref ref) {
   final dataSource = MetronomeAudioDataSource();
   ref.onDispose(() => dataSource.dispose());
   return dataSource;
-});
+}
 
 // Repository Provider
-final metronomeRepositoryProvider = Provider<MetronomeRepository>((ref) {
+@riverpod
+MetronomeRepository metronomeRepository(Ref ref) {
   final dataSource = ref.watch(metronomeAudioDataSourceProvider);
   return MetronomeRepositoryImpl(dataSource);
-});
+}
 
 // UseCase Providers
-final startMetronomeUseCaseProvider = Provider<StartMetronomeUseCase>((ref) {
+@riverpod
+StartMetronomeUseCase startMetronomeUseCase(Ref ref) {
   final repository = ref.watch(metronomeRepositoryProvider);
   return StartMetronomeUseCase(repository);
-});
+}
 
-final stopMetronomeUseCaseProvider = Provider<StopMetronomeUseCase>((ref) {
+@riverpod
+StopMetronomeUseCase stopMetronomeUseCase(Ref ref) {
   final repository = ref.watch(metronomeRepositoryProvider);
   return StopMetronomeUseCase(repository);
-});
+}
 
-final changeBpmUseCaseProvider = Provider<ChangeBpmUseCase>((ref) {
+@riverpod
+ChangeBpmUseCase changeBpmUseCase(Ref ref) {
   final repository = ref.watch(metronomeRepositoryProvider);
   return ChangeBpmUseCase(repository);
-});
+}
 
 // State Provider
-final metronomeStateProvider = StreamProvider<MetronomeState>((ref) {
+@riverpod
+Stream<MetronomeState> metronomeState(Ref ref) {
   final repository = ref.watch(metronomeRepositoryProvider);
   return repository.stateStream;
-});
+}
 
 // Controller Provider
-final metronomeControllerProvider = Provider<MetronomeController>((ref) {
+@riverpod
+MetronomeController metronomeController(Ref ref) {
   return MetronomeController(ref);
-});
+}
 
 class MetronomeController {
   MetronomeController(this._ref);
