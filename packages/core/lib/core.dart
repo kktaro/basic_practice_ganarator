@@ -1,5 +1,5 @@
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+library core;
+
+export 'src/value_objects/bpm.dart';
+export 'src/entities/metronome_state.dart';
+export 'src/entities/metronome_settings.dart';

@@ -12,14 +12,15 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
+  flutter_riverpod: ^2.6.1
   
   # Local packages
   core:
-    path: ../core
+    path: ../../core
   metronome:
-    path: ../features/metronome
+    path: ../../features/metronome
   chord_progression:
-    path: ../features/chord_progression
+    path: ../../features/chord_progression
 
 dev_dependencies:
   flutter_test:
