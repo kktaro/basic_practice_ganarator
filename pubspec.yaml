@@ -1,0 +1,15 @@
+name: basic_practice_generator
+description: A monorepo for basic practice generator applications
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dev_dependencies:
+  melos: ^6.3.3
+
+dependency_overrides:
+
+flutter:
+  uses-material-design: true

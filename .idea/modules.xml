@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/packages/app/bass_app/melos_bass_app.iml" filepath="$PROJECT_DIR$/packages/app/bass_app/melos_bass_app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/features/chord_progression/melos_chord_progression.iml" filepath="$PROJECT_DIR$/packages/features/chord_progression/melos_chord_progression.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/core/melos_core.iml" filepath="$PROJECT_DIR$/packages/core/melos_core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages/features/metronome/melos_metronome.iml" filepath="$PROJECT_DIR$/packages/features/metronome/melos_metronome.iml" />
+      <module fileurl="file://$PROJECT_DIR$/melos_basic_practice_generator.iml" filepath="$PROJECT_DIR$/melos_basic_practice_generator.iml" />
+    </modules>
+  </component>
+</project>

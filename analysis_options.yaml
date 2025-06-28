@@ -1,0 +1,13 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.gr.dart"
+
+linter:
+  rules:
+    prefer_single_quotes: true
+    avoid_print: false
+    avoid_web_libraries_in_flutter: false

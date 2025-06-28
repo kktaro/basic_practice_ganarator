@@ -1,0 +1,85 @@
+name: basic_practice_generator
+
+packages:
+  - packages/**
+
+environment:
+  sdk: ">=3.8.1 <4.0.0"
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter_riverpod: ^3.0.0-dev.16
+  riverpod_annotation: ^3.0.0-dev.16
+  just_audio: ^0.10.4
+  google_mobile_ads: ^6.0.0
+  freezed_annotation: ^3.0.6
+  json_annotation: ^4.9.0
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+  riverpod_generator: ^3.0.0-dev.16
+  riverpod_lint: ^3.0.0-dev.16
+  build_runner: ^2.4.12
+  freezed: ^3.0.6
+  json_serializable: ^6.8.0
+
+command:
+  version:
+    branch: main
+    message: "chore(release): publish packages"
+    includeScopes: false
+
+  bootstrap:
+    runPubGetInParallel: false
+    usePubspecOverrides: true
+
+scripts:
+  analyze:
+    run: |
+      melos exec -c 1 -- "flutter analyze || dart analyze"
+    description: Run static analysis on all packages.
+
+  format:
+    run: dart format --set-exit-if-changed .
+    description: Format code in all packages.
+
+  test:
+    run: |
+      melos exec -c 1 -- "flutter test || dart test"
+    description: Run tests in all packages (Flutter and Dart).
+
+  test:flutter:
+    run: flutter test
+    description: Run tests in Flutter packages only.
+    packageFilters:
+      flutter: true
+
+  test:dart:
+    run: dart test
+    description: Run tests in Dart packages only.
+    packageFilters:
+      flutter: false
+
+  test:unit:
+    run: |
+      melos exec -c 1 -- "flutter test test/unit || dart test test/unit"
+    description: Run unit tests in all packages.
+    packageFilters:
+      dirExists: test/unit
+
+  clean:
+    run: flutter clean
+    description: Clean all packages.
+    packageFilters:
+      flutter: true
+
+  pub:get:
+    run: |
+      melos exec -c 1 -- "flutter pub get || dart pub get"
+    description: Run pub get in all packages.
+
+  build:runner:
+    run: flutter packages pub run build_runner build --delete-conflicting-outputs
+    description: Run build_runner in all packages.
+    packageFilters:
+      dependsOn: "build_runner"
