@@ -8,7 +8,7 @@ import '../../domain/usecases/start_metronome_usecase.dart';
 import '../../domain/usecases/stop_metronome_usecase.dart';
 import '../../domain/usecases/change_bpm_usecase.dart';
 
-part 'metronome_providers.g.dart';
+part '../../../generated/providers/metronome_providers.g.dart';
 
 // DataSource Provider
 @riverpod

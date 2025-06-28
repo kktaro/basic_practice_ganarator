@@ -1,0 +1,11 @@
+targets:
+  $default:
+    builders:
+      source_gen|combining_builder:
+        options:
+          build_extensions:
+            '^lib/src/presentation/providers/{{file}}.dart': 'lib/generated/providers/{{file}}.g.dart'
+      riverpod_generator:
+        options:
+          build_extensions:
+            '^lib/src/presentation/providers/{{file}}.dart': 'lib/generated/providers/{{file}}.g.dart'
