@@ -28,7 +28,7 @@ packages:
   chord_progression:
     dependency: "direct main"
     description:
-      path: "../features/chord_progression"
+      path: "../../features/chord_progression"
       relative: true
     source: path
     version: "0.0.1"
@@ -51,7 +51,7 @@ packages:
   core:
     dependency: "direct main"
     description:
-      path: "../core"
+      path: "../../core"
       relative: true
     source: path
     version: "0.0.1"
@@ -132,7 +132,7 @@ packages:
   metronome:
     dependency: "direct main"
     description:
-      path: "../features/metronome"
+      path: "../../features/metronome"
       relative: true
     source: path
     version: "0.0.1"
