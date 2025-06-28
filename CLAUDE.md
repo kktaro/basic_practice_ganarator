@@ -1,23 +1,25 @@
-# CLAUDE.md
+# プロジェクト基本情報
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このプロジェクトはDartとFlutterを使用して開発する、以下のプラットフォームに対応したアプリケーションである。
 
-## Language Preference
+- iOS
+- Android
+- MacOS
 
-このリポジトリでの作業時は、すべてのやりとりを日本語で行ってください。
+楽器の基礎練習を行うためのアプリケーションであり、ユーザが練習を行う際に必要となるBPMの設定やフレーズのコードを提供する。
 
-## Project Overview
+## アプリ機能仕様
 
-This is a basic practice generator application. The repository is currently empty and awaiting initial development.
+アプリケーションでは以下の機能を提供する。
 
-## Development Setup
+- BPMの設定
+- 指定したBPMでのカウント(クリック)音の再生
+- フレーズに使用するコードの提供
 
-*Note: Development commands will be added as the project structure is established.*
+# 言語設定
 
-## Architecture
+このリポジトリでの作業時は、すべてのやりとりを日本語で行うこと。
 
-*Note: Architecture details will be documented as the codebase develops.*
+# コミットメッセージ規則
 
-## Key Files and Directories
-
-*Note: File structure will be documented as components are added.*
+コミットメッセージは短く簡潔に記述すること。
