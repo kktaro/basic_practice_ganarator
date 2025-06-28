@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch bass_app (Debug)",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "packages/app/bass_app",
+            "flutterMode": "debug"
+        },
+        {
+            "name": "Launch bass_app (Profile)",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "packages/app/bass_app",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "Launch bass_app (Release)",
+            "request": "launch",
+            "type": "dart",
+            "cwd": "packages/app/bass_app",
+            "flutterMode": "release"
+        }
+    ]
+}
