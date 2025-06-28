@@ -44,6 +44,7 @@ Clean Architecture + Riverpod + Repository Patternを採用する。
 
 - `freezed`: データクラス生成
 - `json_annotation`: JSON処理
+- `riverpod_generator`: コード生成ツール
 
 ### プロジェクト構成
 
@@ -83,3 +84,4 @@ packages/
 # 開発ルール
 
 - `pubspec.yaml`の更新を行った場合は必ず`dart run melos bs`を実行すること
+- 自動生成ファイルは`lib/generated`に出力すること

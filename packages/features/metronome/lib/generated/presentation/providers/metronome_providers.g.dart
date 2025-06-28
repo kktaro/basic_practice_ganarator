@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../../src/presentation/providers/metronome_providers.dart';
+part of '../../../src/presentation/providers/metronome_providers.dart';
 
 // **************************************************************************
 // RiverpodGenerator

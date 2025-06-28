@@ -8,4 +8,4 @@ targets:
       freezed:
         options:
           build_extensions:
-            '^lib/src/{{file}}.dart': 'lib/generated/{{file}}.freezed.dart'
+            "^lib/src/{{}}.dart": "lib/generated/{{}}.freezed.dart"

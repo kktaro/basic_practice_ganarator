@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../value_objects/bpm.dart';
 
-part 'metronome_state.freezed.dart';
+part '../../generated/entities/metronome_state.freezed.dart';
 
 @freezed
 class MetronomeState with _$MetronomeState {
