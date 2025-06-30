@@ -80,8 +80,8 @@ as bool,
 /// @nodoc
 
 
-class _MetronomeState implements MetronomeState {
-  const _MetronomeState({required this.bpm, required this.isPlaying, this.volume = 1.0, this.beatsPerMeasure = 4, this.accentFirstBeat = false});
+class _MetronomeState extends MetronomeState {
+   _MetronomeState({required this.bpm, required this.isPlaying, this.volume = 1.0, this.beatsPerMeasure = 4, this.accentFirstBeat = false}): super._();
   
 
 @override final  BPM bpm;

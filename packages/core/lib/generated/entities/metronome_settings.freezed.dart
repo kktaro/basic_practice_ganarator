@@ -80,7 +80,7 @@ as bool,
 
 
 class _MetronomeSettings extends MetronomeSettings {
-  const _MetronomeSettings({this.defaultBpm = 120, this.defaultVolume = 1.0, this.defaultBeatsPerMeasure = 4, this.defaultAccentFirstBeat = true}): super._();
+   _MetronomeSettings({this.defaultBpm = 120, this.defaultVolume = 1.0, this.defaultBeatsPerMeasure = 4, this.defaultAccentFirstBeat = true}): super._();
   
 
 @override@JsonKey() final  int defaultBpm;

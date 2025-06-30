@@ -11,11 +11,14 @@ class MetronomeAudioDataSource {
   final StreamController<MetronomeState> _stateController =
       StreamController<MetronomeState>.broadcast();
   MetronomeState _currentState = MetronomeState.initial();
+  bool isInitialized = false;
 
   Stream<MetronomeState> get stateStream => _stateController.stream;
 
   Future<void> initialize() async {
     await _audioPlayer.setAsset(Assets.sound.click);
+    isInitialized = true;
+    _stateController.add(_currentState);
   }
 
   Future<void> start(BPM bpm) async {

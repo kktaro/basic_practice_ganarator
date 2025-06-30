@@ -4,8 +4,8 @@ import '../value_objects/bpm.dart';
 part '../../generated/entities/metronome_settings.freezed.dart';
 
 @freezed
-class MetronomeSettings with _$MetronomeSettings {
-  const factory MetronomeSettings({
+abstract class MetronomeSettings with _$MetronomeSettings {
+  factory MetronomeSettings({
     @Default(120) int defaultBpm,
     @Default(1.0) double defaultVolume,
     @Default(4) int defaultBeatsPerMeasure,

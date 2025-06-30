@@ -1,12 +1,12 @@
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:core/core.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import '../../data/datasources/metronome_audio_datasource.dart';
 import '../../data/repositories/metronome_repository_impl.dart';
 import '../../domain/repositories/metronome_repository.dart';
+import '../../domain/usecases/change_bpm_usecase.dart';
 import '../../domain/usecases/start_metronome_usecase.dart';
 import '../../domain/usecases/stop_metronome_usecase.dart';
-import '../../domain/usecases/change_bpm_usecase.dart';
 
 part '../../../generated/presentation/providers/metronome_providers.g.dart';
 
@@ -22,6 +22,7 @@ MetronomeAudioDataSource metronomeAudioDataSource(Ref ref) {
 @riverpod
 MetronomeRepository metronomeRepository(Ref ref) {
   final dataSource = ref.watch(metronomeAudioDataSourceProvider);
+  dataSource.initialize();
   return MetronomeRepositoryImpl(dataSource);
 }
 

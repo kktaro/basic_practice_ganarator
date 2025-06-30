@@ -11,7 +11,7 @@ class $AssetsSoundGen {
   const $AssetsSoundGen();
 
   /// File path: assets/sound/click.mp3
-  String get click => 'assets/sound/click.mp3';
+  String get click => 'packages/metronome/assets/sound/click.mp3';
 
   /// List of all assets
   List<String> get values => [click];
@@ -19,6 +19,8 @@ class $AssetsSoundGen {
 
 class Assets {
   const Assets._();
+
+  static const String package = 'metronome';
 
   static const $AssetsSoundGen sound = $AssetsSoundGen();
 }

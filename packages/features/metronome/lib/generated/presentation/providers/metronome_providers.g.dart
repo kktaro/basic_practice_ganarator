@@ -100,7 +100,7 @@ final class MetronomeRepositoryProvider
 }
 
 String _$metronomeRepositoryHash() =>
-    r'84d2dd32be4a9a0a8a744d5f0228c78e718d1468';
+    r'5f2fcc21c0a38ad0060fee9c08222343e77a731b';
 
 @ProviderFor(startMetronomeUseCase)
 const startMetronomeUseCaseProvider = StartMetronomeUseCaseProvider._();
