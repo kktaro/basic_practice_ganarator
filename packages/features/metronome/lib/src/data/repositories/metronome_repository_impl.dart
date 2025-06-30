@@ -23,7 +23,8 @@ class MetronomeRepositoryImpl implements MetronomeRepository {
   Future<void> changeVolume(double volume) => _dataSource.changeVolume(volume);
 
   @override
-  Future<void> changeBeatsPerMeasure(int beats) => _dataSource.changeBeatsPerMeasure(beats);
+  Future<void> changeBeatsPerMeasure(int beats) =>
+      _dataSource.changeBeatsPerMeasure(beats);
 
   @override
   Future<void> toggleAccent(bool accent) => _dataSource.toggleAccent(accent);

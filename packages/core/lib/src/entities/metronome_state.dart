@@ -13,8 +13,6 @@ class MetronomeState with _$MetronomeState {
     @Default(false) bool accentFirstBeat,
   }) = _MetronomeState;
 
-  factory MetronomeState.initial() => MetronomeState(
-        bpm: BPM.create(120),
-        isPlaying: false,
-      );
+  factory MetronomeState.initial() =>
+      MetronomeState(bpm: BPM.create(120), isPlaying: false);
 }

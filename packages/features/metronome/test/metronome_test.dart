@@ -5,16 +5,14 @@ import 'package:metronome/metronome.dart';
 
 // Mock DataSource for testing
 class MockMetronomeDataSource {
-  final StreamController<MetronomeState> _stateController = StreamController<MetronomeState>.broadcast();
+  final StreamController<MetronomeState> _stateController =
+      StreamController<MetronomeState>.broadcast();
   MetronomeState _currentState = MetronomeState.initial();
 
   Stream<MetronomeState> get stateStream => _stateController.stream;
 
   Future<void> start(BPM bpm) async {
-    _currentState = _currentState.copyWith(
-      bpm: bpm,
-      isPlaying: true,
-    );
+    _currentState = _currentState.copyWith(bpm: bpm, isPlaying: true);
     _stateController.add(_currentState);
   }
 
@@ -70,7 +68,8 @@ class MockMetronomeRepository implements MetronomeRepository {
   Future<void> changeVolume(double volume) => _dataSource.changeVolume(volume);
 
   @override
-  Future<void> changeBeatsPerMeasure(int beats) => _dataSource.changeBeatsPerMeasure(beats);
+  Future<void> changeBeatsPerMeasure(int beats) =>
+      _dataSource.changeBeatsPerMeasure(beats);
 
   @override
   Future<void> toggleAccent(bool accent) => _dataSource.toggleAccent(accent);
@@ -95,58 +94,58 @@ void main() {
 
     test('should start metronome with given BPM', () async {
       final bpm = BPM.create(120);
-      
+
       // State streamをlisten
       MetronomeState? capturedState;
       final subscription = repository.stateStream.listen((state) {
         capturedState = state;
       });
-      
+
       await repository.start(bpm);
-      
+
       // 少し待ってから状態を確認
       await Future.delayed(Duration(milliseconds: 10));
-      
+
       expect(capturedState?.bpm.value, 120);
       expect(capturedState?.isPlaying, true);
-      
+
       await subscription.cancel();
     });
 
     test('should stop metronome', () async {
       final bpm = BPM.create(120);
-      
+
       MetronomeState? capturedState;
       final subscription = repository.stateStream.listen((state) {
         capturedState = state;
       });
-      
+
       await repository.start(bpm);
       await repository.stop();
-      
+
       await Future.delayed(Duration(milliseconds: 10));
-      
+
       expect(capturedState?.isPlaying, false);
-      
+
       await subscription.cancel();
     });
 
     test('should change BPM', () async {
       final initialBpm = BPM.create(120);
       final newBpm = BPM.create(140);
-      
+
       MetronomeState? capturedState;
       final subscription = repository.stateStream.listen((state) {
         capturedState = state;
       });
-      
+
       await repository.start(initialBpm);
       await repository.changeBpm(newBpm);
-      
+
       await Future.delayed(Duration(milliseconds: 10));
-      
+
       expect(capturedState?.bpm.value, 140);
-      
+
       await subscription.cancel();
     });
   });
@@ -171,56 +170,56 @@ void main() {
 
     test('StartMetronomeUseCase should call repository start', () async {
       final bpm = BPM.create(120);
-      
+
       MetronomeState? capturedState;
       final subscription = mockRepository.stateStream.listen((state) {
         capturedState = state;
       });
-      
+
       await startUseCase(bpm);
-      
+
       await Future.delayed(Duration(milliseconds: 10));
-      
+
       expect(capturedState?.isPlaying, true);
       expect(capturedState?.bpm.value, 120);
-      
+
       await subscription.cancel();
     });
 
     test('StopMetronomeUseCase should call repository stop', () async {
       final bpm = BPM.create(120);
-      
+
       MetronomeState? capturedState;
       final subscription = mockRepository.stateStream.listen((state) {
         capturedState = state;
       });
-      
+
       await startUseCase(bpm);
       await stopUseCase();
-      
+
       await Future.delayed(Duration(milliseconds: 10));
-      
+
       expect(capturedState?.isPlaying, false);
-      
+
       await subscription.cancel();
     });
 
     test('ChangeBpmUseCase should call repository changeBpm', () async {
       final initialBpm = BPM.create(120);
       final newBpm = BPM.create(140);
-      
+
       MetronomeState? capturedState;
       final subscription = mockRepository.stateStream.listen((state) {
         capturedState = state;
       });
-      
+
       await startUseCase(initialBpm);
       await changeBpmUseCase(newBpm);
-      
+
       await Future.delayed(Duration(milliseconds: 10));
-      
+
       expect(capturedState?.bpm.value, 140);
-      
+
       await subscription.cancel();
     });
   });

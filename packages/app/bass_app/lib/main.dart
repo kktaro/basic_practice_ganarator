@@ -54,18 +54,9 @@ class _BassHomePageState extends State<BassHomePage> {
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.timer),
-            label: 'メトロノーム',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.music_note),
-            label: 'コード進行',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: '設定',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.timer), label: 'メトロノーム'),
+          BottomNavigationBarItem(icon: Icon(Icons.music_note), label: 'コード進行'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: '設定'),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,

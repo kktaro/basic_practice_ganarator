@@ -1,24 +1,21 @@
 import 'dart:async';
 import 'package:just_audio/just_audio.dart';
 import 'package:core/core.dart';
+import 'package:metronome/gen/assets.gen.dart';
 
 class MetronomeAudioDataSource {
   MetronomeAudioDataSource() : _audioPlayer = AudioPlayer();
 
   final AudioPlayer _audioPlayer;
   Timer? _timer;
-  final StreamController<MetronomeState> _stateController = StreamController<MetronomeState>.broadcast();
+  final StreamController<MetronomeState> _stateController =
+      StreamController<MetronomeState>.broadcast();
   MetronomeState _currentState = MetronomeState.initial();
 
   Stream<MetronomeState> get stateStream => _stateController.stream;
 
   Future<void> initialize() async {
-    // シンプルなメトロノーム音を生成
-    // 実際の実装では音声ファイルをロードするか、合成音を使用
-    await _audioPlayer.setAsset('packages/metronome/assets/click.mp3').catchError((_) {
-      // アセットがない場合のフォールバック
-      return _audioPlayer.setUrl('https://www.soundjay.com/misc/sounds/bell-ringing-05.wav');
-    });
+    await _audioPlayer.setAsset(Assets.sound.click);
   }
 
   Future<void> start(BPM bpm) async {
@@ -26,10 +23,7 @@ class MetronomeAudioDataSource {
       await stop();
     }
 
-    _currentState = _currentState.copyWith(
-      bpm: bpm,
-      isPlaying: true,
-    );
+    _currentState = _currentState.copyWith(bpm: bpm, isPlaying: true);
     _stateController.add(_currentState);
 
     final intervalMs = (60000 / bpm.value).round();
@@ -41,7 +35,7 @@ class MetronomeAudioDataSource {
   Future<void> stop() async {
     _timer?.cancel();
     _timer = null;
-    
+
     _currentState = _currentState.copyWith(isPlaying: false);
     _stateController.add(_currentState);
   }
@@ -49,7 +43,7 @@ class MetronomeAudioDataSource {
   Future<void> changeBpm(BPM bpm) async {
     _currentState = _currentState.copyWith(bpm: bpm);
     _stateController.add(_currentState);
-    
+
     if (_currentState.isPlaying) {
       await start(bpm);
     }

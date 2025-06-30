@@ -12,23 +12,15 @@ class MetronomeWidget extends ConsumerWidget {
     final controller = ref.read(metronomeControllerProvider);
 
     return metronomeState.when(
-      data: (state) => _MetronomeContent(
-        state: state,
-        controller: controller,
-      ),
+      data: (state) => _MetronomeContent(state: state, controller: controller),
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => Center(
-        child: Text('エラーが発生しました: $error'),
-      ),
+      error: (error, stackTrace) => Center(child: Text('エラーが発生しました: $error')),
     );
   }
 }
 
 class _MetronomeContent extends StatelessWidget {
-  const _MetronomeContent({
-    required this.state,
-    required this.controller,
-  });
+  const _MetronomeContent({required this.state, required this.controller});
 
   final MetronomeState state;
   final MetronomeController controller;
@@ -44,15 +36,12 @@ class _MetronomeContent extends StatelessWidget {
           Text(
             '${state.bpm.value}',
             style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: state.isPlaying ? Colors.green : Colors.grey,
-                ),
+              fontWeight: FontWeight.bold,
+              color: state.isPlaying ? Colors.green : Colors.grey,
+            ),
           ),
           const SizedBox(height: 8),
-          Text(
-            'BPM',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text('BPM', style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 32),
 
           // BPM調整スライダー

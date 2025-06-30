@@ -5,26 +5,6 @@ packages:
 
 sdkPath: .fvm/versions/3.32.5
 
-environment:
-  sdk: ">=3.8.1 <4.0.0"
-  flutter: ">=3.24.0"
-
-dependencies:
-  flutter_riverpod: ^3.0.0-dev.16
-  riverpod_annotation: ^3.0.0-dev.16
-  just_audio: ^0.10.4
-  google_mobile_ads: ^6.0.0
-  freezed_annotation: ^3.0.6
-  json_annotation: ^4.9.0
-
-dev_dependencies:
-  flutter_lints: ^5.0.0
-  riverpod_generator: ^3.0.0-dev.16
-  riverpod_lint: ^3.0.0-dev.16
-  build_runner: ^2.4.12
-  freezed: ^3.0.6
-  json_serializable: ^6.8.0
-
 command:
   version:
     branch: main
@@ -34,6 +14,26 @@ command:
   bootstrap:
     runPubGetInParallel: false
     usePubspecOverrides: true
+    environment:
+      sdk: ">=3.8.1 <4.0.0"
+      flutter: ">=3.24.0"
+
+    dependencies:
+      flutter_riverpod: ^3.0.0-dev.16
+      riverpod_annotation: ^3.0.0-dev.16
+      just_audio: ^0.10.4
+      google_mobile_ads: ^6.0.0
+      freezed_annotation: ^3.0.0
+      json_annotation: ^4.9.0
+
+    dev_dependencies:
+      flutter_lints: ^5.0.0
+      riverpod_generator: ^3.0.0-dev.16
+      riverpod_lint: ^3.0.0-dev.16
+      build_runner: ^2.4.12
+      freezed: ^3.0.6
+      json_serializable: ^6.8.0
+      flutter_gen_runner: ^5.10.0
 
 scripts:
   analyze:
