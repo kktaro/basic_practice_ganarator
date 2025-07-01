@@ -78,8 +78,8 @@ scripts:
       melos exec -c 1 -- "flutter pub get || dart pub get"
     description: Run pub get in all packages.
 
-  build:runner:
-    run: flutter packages pub run build_runner build --delete-conflicting-outputs
+  generate:
+    run: melos exec -- "flutter pub run build_runner build -d"
     description: Run build_runner in all packages.
     packageFilters:
       dependsOn: "build_runner"
