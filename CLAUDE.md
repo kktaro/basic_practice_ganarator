@@ -24,13 +24,45 @@
 
 ## アーキテクチャパターン
 
-Clean Architecture + Riverpod + Repository Patternを採用する。
+Clean Architecture + MVVM + Riverpod + Repository Patternを採用する。
 
 ### レイヤー構成
 
-- **Presentation Layer**: UI + Riverpod Provider
-- **Domain Layer**: ビジネスロジック + Entity
-- **Data Layer**: Repository実装 + Local Data Source
+- **Presentation Layer**: View (UI) + ViewModel (Riverpod Provider) + State Class
+- **Domain Layer**: Entity + Repository Interface
+- **Data Layer**: Repository実装 + Data Source
+
+### MVVM パターンの実現
+
+RiverpodによるMVVMパターンの実装:
+
+- **Model**: Entity (Domain Layer)
+- **View**: Widget (Presentation Layer)
+- **ViewModel**: Riverpod Provider (Presentation Layer)
+- **State**: State Class (Presentation Layer)
+
+#### ViewModel設計指針
+
+- `@riverpod`アノテーションを使用してProviderを生成
+- クラス名は`XxxViewModel`という命名規則に従う
+- 状態管理と副作用（API通信、ローカル保存等）を担当
+- UIから直接Repository操作は行わず、必ずViewModelを経由する
+
+#### State Class設計指針
+
+- ViewModelで管理する状態は必ずState Classを作成する
+- クラス名は`XxxState`という命名規則に従う
+- `@freezed`アノテーションを使用してイミュータブルなクラスとして定義
+- 状態の変更は`copyWith`メソッドを通じて行う
+
+### UseCaseレイヤーについて
+
+**このプロジェクトの規模ではUseCaseレイヤーは不要とする。**
+
+理由:
+- 小規模アプリケーションのため、ビジネスロジックが複雑でない
+- ViewModelから直接Repositoryを呼び出すことで十分
+- 過度な抽象化を避け、シンプルな構成を維持
 
 ## 技術選定
 
@@ -44,6 +76,7 @@ Clean Architecture + Riverpod + Repository Patternを採用する。
 
 - `freezed`: データクラス生成
 - `json_annotation`: JSON処理
+- `riverpod_generator`: コード生成ツール
 
 ### プロジェクト構成
 
@@ -79,3 +112,72 @@ packages/
 # コミットメッセージ規則
 
 コミットメッセージは短く簡潔に記述すること。
+
+# 開発ルール
+
+- `pubspec.yaml`の更新を行った場合は必ず`dart run melos bs`を実行すること
+- 自動生成ファイルは`lib/generated`に出力すること
+
+## コード品質管理
+
+### コミット前の必須チェック
+
+コードをコミットする前に、必ず以下のコマンドを実行し、すべて成功することを確認する：
+
+```bash
+# 1. コード生成（必要に応じて）
+melos run generate
+
+# 2. フォーマット
+melos run format
+
+# 3. 静的解析（エラーゼロ）
+melos run analyze
+
+# 4. テスト実行（すべて成功）
+melos run test
+```
+
+### エラー対応方針
+
+- **フォーマットエラー**: `melos run format`で自動修正
+- **静的解析エラー**: すべて修正してからコミット
+- **テスト失敗**: すべてのテストが成功するまで修正
+- **警告（Warning）**: 原則として修正。やむを得ない場合は理由をコメントで明記
+
+## PR作成ルール
+
+### PRサイズ管理
+
+- 1つのPRでの変更行数は**500行以下**を目安とする
+- 500行を超える場合は以下の対応を行う：
+  1. **機能を分割**してより小さなPRに分ける
+  2. **サブイシューを作成**して段階的に実装する
+  3. **実装順序を明確化**してレビュー負荷を軽減する
+
+### サブイシュー作成ガイドライン
+
+大きな機能実装時は以下の手順でサブイシューを作成する：
+
+1. **メインイシュー**: 全体的な機能要件を記述
+2. **サブイシュー**: 以下の単位で分割
+   - データモデル定義
+   - ビジネスロジック実装
+   - UI実装
+   - 統合・最終調整
+
+#### サブイシューの命名規則
+
+```
+[メインイシュー番号] サブタスク: 具体的な実装内容
+例: [#6] サブタスク: メトロノーム用データモデル定義
+```
+
+#### 実装順序の推奨
+
+1. **Domain Layer**（Entity、Repository Interface）+ テスト
+2. **Data Layer**（Repository実装、Data Source）+ テスト
+3. **Presentation Layer**（Provider、UI）+ テスト
+4. 統合・調整
+
+**重要**: 各レイヤーの実装と同時にテストも作成し、都度テストを実行して品質を確保する
