@@ -31,6 +31,7 @@ command:
       build_runner: ^2.4.12
       freezed: ^3.0.6
       json_serializable: ^6.8.0
+      mockito: ^5.4.6
 
 scripts:
   analyze:
