@@ -54,7 +54,8 @@ class MetronomeRepositoryImpl implements IMetronomeRepository {
     _metronomePlayer = Timer.periodic(
       Duration(milliseconds: _state.beatIntervalMs),
       (_) {
-        debugPrint('onBeat!');
+        debugPrint('onBeat! currentBeat: ${_state.currentBeat}');
+        _state = _state.nextBeat();
         _normalClickDataSource.play();
       },
     );
