@@ -12,7 +12,7 @@ const metronomeViewModelProvider = MetronomeViewModelProvider._();
 
 /// メトロノームのViewModel
 final class MetronomeViewModelProvider
-    extends $NotifierProvider<MetronomeViewModel, MetronomeState> {
+    extends $NotifierProvider<MetronomeViewModel, MetronomeScreenState> {
   /// メトロノームのViewModel
   const MetronomeViewModelProvider._()
     : super(
@@ -33,29 +33,29 @@ final class MetronomeViewModelProvider
   MetronomeViewModel create() => MetronomeViewModel();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(MetronomeState value) {
+  Override overrideWithValue(MetronomeScreenState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<MetronomeState>(value),
+      providerOverride: $SyncValueProvider<MetronomeScreenState>(value),
     );
   }
 }
 
 String _$metronomeViewModelHash() =>
-    r'c9eb5030ef235f8448164657e596276da0cecf78';
+    r'f8b4877cb86fc3a93f4e2f33cef91e3b058e8fc4';
 
-abstract class _$MetronomeViewModel extends $Notifier<MetronomeState> {
-  MetronomeState build();
+abstract class _$MetronomeViewModel extends $Notifier<MetronomeScreenState> {
+  MetronomeScreenState build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<MetronomeState, MetronomeState>;
+    final ref = this.ref as $Ref<MetronomeScreenState, MetronomeScreenState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<MetronomeState, MetronomeState>,
-              MetronomeState,
+              AnyNotifier<MetronomeScreenState, MetronomeScreenState>,
+              MetronomeScreenState,
               Object?,
               Object?
             >;

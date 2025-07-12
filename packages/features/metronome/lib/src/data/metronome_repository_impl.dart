@@ -1,50 +1,84 @@
-import 'package:just_audio/just_audio.dart';
+import 'dart:async';
+
 import 'package:core/core.dart';
+import 'package:flutter/foundation.dart';
+import 'package:metronome/gen/assets.gen.dart';
+import 'package:metronome/metronome.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'metronome_repository_impl.g.dart';
+
+@riverpod
+class MetronomeRepository extends _$MetronomeRepository {
+  @override
+  IMetronomeRepository build() {
+    return MetronomeRepositoryImpl(
+      normalClickDataSource: JustAudioDataSourceImpl(),
+      accentClickDataSource: JustAudioDataSourceImpl(),
+    );
+  }
+}
 
 /// MetronomeRepositoryの実装
-class MetronomeRepositoryImpl implements MetronomeRepository {
-  late final AudioPlayer _normalClickPlayer;
-  late final AudioPlayer _accentClickPlayer;
+class MetronomeRepositoryImpl implements IMetronomeRepository {
+  late final AudioPlayerDataSource _normalClickDataSource;
+  late final AudioPlayerDataSource _accentClickDataSource;
+
+  MetronomeState _state = const MetronomeState();
+  Timer? _metronomePlayer;
+
+  MetronomeRepositoryImpl({
+    required AudioPlayerDataSource normalClickDataSource,
+    required AudioPlayerDataSource accentClickDataSource,
+  }) : _normalClickDataSource = normalClickDataSource,
+       _accentClickDataSource = accentClickDataSource;
 
   @override
   Future<void> initialize() async {
-    _normalClickPlayer = AudioPlayer();
-    _accentClickPlayer = AudioPlayer();
+    // 通常のクリック音データソースを初期化
+    await _normalClickDataSource.initializePlayer();
+    await _normalClickDataSource.loadAsset(Assets.sound.click);
 
-    // 通常のクリック音を設定
-    await _normalClickPlayer.setAsset(
-      'packages/metronome/assets/sound/click.mp3',
-    );
-
-    // アクセントクリック音も同じファイルを使用（将来的に異なる音に変更可能）
-    await _accentClickPlayer.setAsset(
-      'packages/metronome/assets/sound/click.mp3',
-    );
-
-    // プリロードして即座に再生できるようにする
-    await _normalClickPlayer.load();
-    await _accentClickPlayer.load();
+    // アクセントクリック音データソースを初期化
+    await _accentClickDataSource.initializePlayer();
+    //FIXME(kktaro): 通常のクリック音と異なるアセットを使用する
+    await _accentClickDataSource.loadAsset(Assets.sound.click);
   }
 
   @override
-  Future<void> playClick({bool isAccent = false}) async {
-    final player = isAccent ? _accentClickPlayer : _normalClickPlayer;
-    
-    // 再生位置を最初に戻してから再生
-    await player.seek(Duration.zero);
-    await player.play();
+  MetronomeState playClick() {
+    if (_state.isPlaying) return _state;
+
+    _state = _state.start();
+    // TODO(kktaro): 博の頭をアクセントで再生できるようにする
+    _metronomePlayer = Timer.periodic(
+      Duration(milliseconds: _state.beatIntervalMs),
+      (_) {
+        debugPrint('onBeat!');
+        _normalClickDataSource.play();
+      },
+    );
+    return _state;
   }
 
   @override
-  Future<void> setVolume(double volume) async {
-    final clampedVolume = volume.clamp(0.0, 1.0);
-    await _normalClickPlayer.setVolume(clampedVolume);
-    await _accentClickPlayer.setVolume(clampedVolume);
+  MetronomeState stopClick() {
+    if (!_state.isPlaying) return _state;
+    _state = _state.stop();
+    _metronomePlayer?.cancel();
+    _metronomePlayer = null;
+    return _state;
   }
 
   @override
   Future<void> dispose() async {
-    await _normalClickPlayer.dispose();
-    await _accentClickPlayer.dispose();
+    await _normalClickDataSource.dispose();
+    await _accentClickDataSource.dispose();
+  }
+
+  @override
+  MetronomeState changeBpm(int newBpm) {
+    _state = _state.changeBpm(newBpm);
+    return _state;
   }
 }

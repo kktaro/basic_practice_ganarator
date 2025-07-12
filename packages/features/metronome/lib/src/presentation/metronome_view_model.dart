@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'package:metronome/src/presentation/metronome_screen_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:core/core.dart';
 import '../data/metronome_repository_impl.dart';
 
 part 'metronome_view_model.g.dart';
@@ -8,84 +8,39 @@ part 'metronome_view_model.g.dart';
 /// メトロノームのViewModel
 @riverpod
 class MetronomeViewModel extends _$MetronomeViewModel {
-  late final MetronomeRepository _repository;
-  Timer? _metronomeTimer;
-
   @override
-  MetronomeState build() {
-    _repository = MetronomeRepositoryImpl();
-    
+  MetronomeScreenState build() {
+    final metronomeRepository = ref.read(metronomeRepositoryProvider);
+
     // ViewModelが破棄される時のクリーンアップ
     ref.onDispose(() {
-      _stopTimer();
-      _repository.dispose();
+      metronomeRepository.dispose();
     });
 
     // 初期化
-    _repository.initialize();
+    metronomeRepository.initialize();
 
-    return const MetronomeState();
+    return MetronomeScreenState();
   }
 
   /// メトロノームを開始
   Future<void> start() async {
-    if (state.isPlaying) return;
-
-    state = state.start();
-    _startTimer();
+    final metronomeRepository = ref.read(metronomeRepositoryProvider);
+    final newState = metronomeRepository.playClick();
+    state = MetronomeScreenState.fromMetronome(newState);
   }
 
   /// メトロノームを停止
   Future<void> stop() async {
-    if (!state.isPlaying) return;
-
-    state = state.stop();
-    _stopTimer();
+    final metronomeRepository = ref.read(metronomeRepositoryProvider);
+    final newState = metronomeRepository.stopClick();
+    state = MetronomeScreenState.fromMetronome(newState);
   }
 
   /// BPMを変更
   void changeBpm(int newBpm) {
-    final newState = state.changeBpm(newBpm);
-    if (newState != state) {
-      state = newState;
-      
-      // 再生中の場合はタイマーを再開
-      if (state.isPlaying) {
-        _stopTimer();
-        _startTimer();
-      }
-    }
-  }
-
-  /// ボリュームを変更
-  Future<void> setVolume(double volume) async {
-    await _repository.setVolume(volume);
-  }
-
-  /// タイマーを開始
-  void _startTimer() {
-    _stopTimer(); // 既存のタイマーがあれば停止
-
-    final interval = Duration(milliseconds: state.beatIntervalMs);
-    
-    _metronomeTimer = Timer.periodic(interval, (timer) {
-      _playClick();
-      state = state.nextBeat();
-    });
-
-    // 最初のクリックを即座に再生
-    _playClick();
-  }
-
-  /// タイマーを停止
-  void _stopTimer() {
-    _metronomeTimer?.cancel();
-    _metronomeTimer = null;
-  }
-
-  /// クリック音を再生
-  void _playClick() {
-    final isAccent = state.currentBeat == 1; // 第1拍をアクセント
-    _repository.playClick(isAccent: isAccent);
+    final metronomeRepository = ref.read(metronomeRepositoryProvider);
+    final newState = metronomeRepository.changeBpm(newBpm);
+    state = MetronomeScreenState.fromMetronome(newState);
   }
 }

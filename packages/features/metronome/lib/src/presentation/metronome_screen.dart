@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'metronome_view_model.dart';
@@ -12,10 +13,7 @@ class MetronomeScreen extends ConsumerWidget {
     final viewModel = ref.read(metronomeViewModelProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('メトロノーム'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('メトロノーム'), centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -32,9 +30,9 @@ class MetronomeScreen extends ConsumerWidget {
             const SizedBox(height: 8),
             Text(
               'BPM',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Colors.grey[600],
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(color: Colors.grey[600]),
             ),
             const SizedBox(height: 40),
 
@@ -43,8 +41,9 @@ class MetronomeScreen extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(state.timeSignatureNumerator, (index) {
                 final beatNumber = index + 1;
-                final isCurrentBeat = state.currentBeat == beatNumber && state.isPlaying;
-                
+                final isCurrentBeat =
+                    state.currentBeat == beatNumber && state.isPlaying;
+
                 return Container(
                   margin: const EdgeInsets.symmetric(horizontal: 8),
                   width: 40,
@@ -74,19 +73,19 @@ class MetronomeScreen extends ConsumerWidget {
             // BPM調整スライダー
             Row(
               children: [
-                Text('${MetronomeState.minBpm}'),
+                Text('$minBpm'),
                 Expanded(
                   child: Slider(
                     value: state.bpm.toDouble(),
-                    min: MetronomeState.minBpm.toDouble(),
-                    max: MetronomeState.maxBpm.toDouble(),
-                    divisions: MetronomeState.maxBpm - MetronomeState.minBpm,
+                    min: minBpm.toDouble(),
+                    max: maxBpm.toDouble(),
+                    divisions: maxBpm - minBpm,
                     onChanged: (value) {
                       viewModel.changeBpm(value.round());
                     },
                   ),
                 ),
-                Text('${MetronomeState.maxBpm}'),
+                Text('$maxBpm'),
               ],
             ),
             const SizedBox(height: 24),

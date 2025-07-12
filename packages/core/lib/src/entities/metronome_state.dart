@@ -2,6 +2,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'metronome_state.freezed.dart';
 
+/// BPMの最小値
+const int minBpm = 30;
+
+/// BPMの最大値
+const int maxBpm = 300;
+
 /// メトロノームの状態を表すエンティティ
 @freezed
 abstract class MetronomeState with _$MetronomeState {
@@ -11,15 +17,13 @@ abstract class MetronomeState with _$MetronomeState {
     @Default(120) int bpm,
     @Default(false) bool isPlaying,
     @Default(1) int currentBeat,
+
+    /// 拍子の分子（例: 3/4拍子なら3）
     @Default(4) int timeSignatureNumerator,
-    @Default(4) int timeSignatureDenominator,
+
+    /// 拍子の分母（例: 3/4拍子なら4）
+    @Default(4) int timeSignatureDenominator, // 拍子の分母
   }) = _MetronomeState;
-
-  /// BPMの最小値
-  static const int minBpm = 30;
-
-  /// BPMの最大値
-  static const int maxBpm = 300;
 
   /// BPMが有効な範囲内かチェック
   bool get isValidBpm => bpm >= minBpm && bpm <= maxBpm;
@@ -29,7 +33,9 @@ abstract class MetronomeState with _$MetronomeState {
 
   /// 次の拍に進む
   MetronomeState nextBeat() {
-    final nextBeatNumber = currentBeat >= timeSignatureNumerator ? 1 : currentBeat + 1;
+    final nextBeatNumber = currentBeat >= timeSignatureNumerator
+        ? 1
+        : currentBeat + 1;
     return copyWith(currentBeat: nextBeatNumber);
   }
 

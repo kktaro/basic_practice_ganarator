@@ -1,12 +1,23 @@
+import 'package:core/core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:metronome/metronome.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
+@GenerateNiceMocks([MockSpec<AudioPlayerDataSource>()])
+import 'metronome_repository_impl_test.mocks.dart';
 
 void main() {
   group('MetronomeRepositoryImpl', () {
     late MetronomeRepositoryImpl repository;
+    final mockNormalDataSource = MockAudioPlayerDataSource();
+    final mockAccentDataSource = MockAudioPlayerDataSource();
 
     setUp(() {
-      repository = MetronomeRepositoryImpl();
+      repository = MetronomeRepositoryImpl(
+        normalClickDataSource: mockNormalDataSource,
+        accentClickDataSource: mockAccentDataSource,
+      );
     });
 
     tearDown(() async {
@@ -14,24 +25,20 @@ void main() {
     });
 
     test('初期化が正常に完了する', () async {
-      // 実際の音声ファイルが存在しないため、例外が発生することを確認
-      expect(
-        () async => await repository.initialize(),
-        throwsA(isA<Exception>()),
-      );
+      await repository.initialize();
+
+      verify(mockNormalDataSource.initializePlayer());
+      verify(mockNormalDataSource.loadAsset(any));
+      verify(mockAccentDataSource.initializePlayer());
+      verify(mockAccentDataSource.loadAsset(any));
     });
 
-    test('ボリューム設定が正常に動作する', () async {
-      // ボリューム設定のメソッドが存在することを確認
-      expect(repository.setVolume, isA<Function>());
-    });
+    test('dispose が両方のデータソースで実行される', () async {
+      await repository.initialize();
+      await repository.dispose();
 
-    test('クリック再生メソッドが存在する', () {
-      expect(repository.playClick, isA<Function>());
-    });
-
-    test('dispose メソッドが存在する', () {
-      expect(repository.dispose, isA<Function>());
+      verify(mockNormalDataSource.dispose());
+      verify(mockAccentDataSource.dispose());
     });
   });
 }
