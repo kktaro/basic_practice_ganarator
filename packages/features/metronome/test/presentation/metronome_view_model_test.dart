@@ -28,17 +28,21 @@ void main() {
       container.dispose();
     });
 
-    test('初期状態が正しく設定される', () {
-      final state = container.read(metronomeViewModelProvider);
+    Future<void> consumeInitialState() async {
+      await container.read(metronomeViewModelProvider.future);
+    }
 
-      expect(state.bpm, 120);
-      expect(state.isPlaying, false);
-      expect(state.currentBeat, 1);
-      expect(state.timeSignatureNumerator, 4);
-      expect(state.timeSignatureDenominator, 4);
+    test('初期状態が正しく設定される', () async {
+      final state = await container.read(metronomeViewModelProvider.future);
+
+      expectLater(state.bpm, 120);
+      expectLater(state.isPlaying, false);
+      expectLater(state.currentBeat, 1);
+      expectLater(state.timeSignatureNumerator, 4);
+      expectLater(state.timeSignatureDenominator, 4);
     });
 
-    test('BPM変更が正常に動作する', () {
+    test('BPM変更が正常に動作する', () async {
       final newBpm = 140;
       when(mockMetronomeRepository.changeBpm(newBpm)).thenAnswer((_) {
         final state = MetronomeState();
@@ -48,12 +52,13 @@ void main() {
       final viewModel = container.read(metronomeViewModelProvider.notifier);
 
       viewModel.changeBpm(newBpm);
-      final state = container.read(metronomeViewModelProvider);
+      await consumeInitialState();
+      final state = await container.read(metronomeViewModelProvider.future);
 
-      expect(state.bpm, newBpm);
+      await expectLater(state.bpm, newBpm);
     });
 
-    test('無効なBPMは変更されない', () {
+    test('無効なBPMは変更されない', () async {
       final newBpm = 20; // 無効なBPM
       when(
         mockMetronomeRepository.changeBpm(newBpm),
@@ -62,10 +67,11 @@ void main() {
       final viewModel = container.read(metronomeViewModelProvider.notifier);
 
       viewModel.changeBpm(newBpm);
-      final state = container.read(metronomeViewModelProvider);
+      await consumeInitialState();
+      final state = await container.read(metronomeViewModelProvider.future);
 
       // 初期状態のBPMが維持されることを確認
-      expect(state.bpm, 120);
+      await expectLater(state.bpm, 120);
     });
 
     test('メトロノーム開始が正常に動作する', () async {
@@ -77,9 +83,10 @@ void main() {
       final viewModel = container.read(metronomeViewModelProvider.notifier);
 
       await viewModel.start();
-      final state = container.read(metronomeViewModelProvider);
+      await consumeInitialState();
+      final state = await container.read(metronomeViewModelProvider.future);
 
-      expect(state.isPlaying, true);
+      await expectLater(state.isPlaying, true);
     });
 
     test('メトロノーム停止が正常に動作する', () async {
@@ -97,9 +104,13 @@ void main() {
       // 一度開始してから停止
       await viewModel.start();
       await viewModel.stop();
-      final state = container.read(metronomeViewModelProvider);
 
-      expect(state.isPlaying, false);
+      await consumeInitialState();
+      // 開始時のState
+      await container.read(metronomeViewModelProvider.future);
+      final state = await container.read(metronomeViewModelProvider.future);
+
+      await expectLater(state.isPlaying, false);
     });
   });
 }

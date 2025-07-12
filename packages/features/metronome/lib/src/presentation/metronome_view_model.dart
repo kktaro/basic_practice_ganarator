@@ -9,7 +9,7 @@ part 'metronome_view_model.g.dart';
 @riverpod
 class MetronomeViewModel extends _$MetronomeViewModel {
   @override
-  MetronomeScreenState build() {
+  Future<MetronomeScreenState> build() async {
     final metronomeRepository = ref.read(metronomeRepositoryProvider);
 
     // ViewModelが破棄される時のクリーンアップ
@@ -18,29 +18,35 @@ class MetronomeViewModel extends _$MetronomeViewModel {
     });
 
     // 初期化
-    metronomeRepository.initialize();
+    await metronomeRepository.initialize();
 
     return MetronomeScreenState();
   }
 
   /// メトロノームを開始
   Future<void> start() async {
-    final metronomeRepository = ref.read(metronomeRepositoryProvider);
-    final newState = metronomeRepository.playClick();
-    state = MetronomeScreenState.fromMetronome(newState);
+    state = await AsyncValue.guard(() async {
+      final metronomeRepository = ref.read(metronomeRepositoryProvider);
+      final newState = metronomeRepository.playClick();
+      return MetronomeScreenState.fromMetronome(newState);
+    });
   }
 
   /// メトロノームを停止
   Future<void> stop() async {
-    final metronomeRepository = ref.read(metronomeRepositoryProvider);
-    final newState = metronomeRepository.stopClick();
-    state = MetronomeScreenState.fromMetronome(newState);
+    state = await AsyncValue.guard(() async {
+      final metronomeRepository = ref.read(metronomeRepositoryProvider);
+      final newState = metronomeRepository.stopClick();
+      return MetronomeScreenState.fromMetronome(newState);
+    });
   }
 
   /// BPMを変更
-  void changeBpm(int newBpm) {
-    final metronomeRepository = ref.read(metronomeRepositoryProvider);
-    final newState = metronomeRepository.changeBpm(newBpm);
-    state = MetronomeScreenState.fromMetronome(newState);
+  Future<void> changeBpm(int newBpm) async {
+    state = await AsyncValue.guard(() async {
+      final metronomeRepository = ref.read(metronomeRepositoryProvider);
+      final newState = metronomeRepository.changeBpm(newBpm);
+      return MetronomeScreenState.fromMetronome(newState);
+    });
   }
 }
