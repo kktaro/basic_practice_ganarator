@@ -8,8 +8,7 @@ environment:
 
 dev_dependencies:
   melos: ^6.3.3
-
-dependency_overrides:
+  very_good_analysis: ^9.0.0
 
 flutter:
   uses-material-design: true

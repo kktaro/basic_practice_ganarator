@@ -25,19 +25,25 @@ command:
       json_annotation: ^4.9.0
 
     dev_dependencies:
-      flutter_lints: ^5.0.0
+      very_good_analysis: ^9.0.0
       riverpod_generator: ^3.0.0-dev.16
       riverpod_lint: ^3.0.0-dev.16
       build_runner: ^2.4.12
       freezed: ^3.0.6
       json_serializable: ^6.8.0
       mockito: ^5.4.6
+      audio_session: ^0.2.2
 
 scripts:
   analyze:
     run: |
       melos exec -c 1 -- "flutter analyze || dart analyze"
     description: Run static analysis on all packages.
+
+  lint:
+    run: |
+      melos exec -c 1 -- "flutter analyze --fatal-infos || dart analyze --fatal-infos"
+    description: Run linting with very_good_analysis on all packages.
 
   format:
     run: dart format --set-exit-if-changed .

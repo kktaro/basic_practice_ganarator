@@ -5,8 +5,6 @@ part 'metronome_screen_state.freezed.dart';
 
 @freezed
 abstract class MetronomeScreenState with _$MetronomeScreenState {
-  const MetronomeScreenState._();
-
   const factory MetronomeScreenState({
     @Default(120) int bpm,
     @Default(false) bool isPlaying,
@@ -18,6 +16,7 @@ abstract class MetronomeScreenState with _$MetronomeScreenState {
     /// 拍子の分母（例: 3/4拍子なら4）
     @Default(4) int timeSignatureDenominator, // 拍子の分母
   }) = _MetronomeScreenState;
+  const MetronomeScreenState._();
 
   factory MetronomeScreenState.fromMetronome(MetronomeState metronomeState) =>
       MetronomeScreenState(

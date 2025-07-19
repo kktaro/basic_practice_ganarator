@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'metronome_view_model.dart';
+import 'package:metronome/src/presentation/metronome_view_model.dart';
 
 /// メトロノーム画面
 class MetronomeScreen extends ConsumerWidget {
@@ -18,7 +18,7 @@ class MetronomeScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('エラーが発生しました: $error')),
         data: (data) => Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -76,7 +76,7 @@ class MetronomeScreen extends ConsumerWidget {
               // BPM調整スライダー
               Row(
                 children: [
-                  Text('$minBpm'),
+                  const Text('$minBpm'),
                   Expanded(
                     child: Slider(
                       value: data.bpm.toDouble(),
@@ -88,7 +88,7 @@ class MetronomeScreen extends ConsumerWidget {
                       },
                     ),
                   ),
-                  Text('$maxBpm'),
+                  const Text('$maxBpm'),
                 ],
               ),
               const SizedBox(height: 24),
