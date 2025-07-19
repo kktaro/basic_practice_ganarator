@@ -1,0 +1,8 @@
+pre-commit:
+  commands:
+    1_analyze:
+      run: melos analyze
+    2_format:
+      run: melos format
+    3_fix:
+      run: melos fix
