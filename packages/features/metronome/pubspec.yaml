@@ -32,7 +32,7 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
-  audio_session: any
+  audio_session: ^0.2.2
 flutter:
   assets:
     - assets/sound/click.mp3
