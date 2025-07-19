@@ -78,6 +78,6 @@ class MetronomeRepositoryImpl implements IMetronomeRepository {
 
   @override
   MetronomeState changeBpm(int newBpm) {
-    return _state.changeBpm(newBpm);
+    return _state = _state.changeBpm(newBpm);
   }
 }
