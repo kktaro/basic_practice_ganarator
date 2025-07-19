@@ -43,6 +43,10 @@ scripts:
     run: dart format --set-exit-if-changed .
     description: Format code in all packages.
 
+  fix:
+    run: melos exec -- "dart fix --apply"
+    description: Run fix with apply option.
+
   test:
     run: |
       melos exec -c 1 -- "flutter test || dart test"
