@@ -21,17 +21,17 @@ class MetronomeRepository extends _$MetronomeRepository {
 
 /// MetronomeRepositoryの実装
 class MetronomeRepositoryImpl implements IMetronomeRepository {
-  late final AudioPlayerDataSource _normalClickDataSource;
-  late final AudioPlayerDataSource _accentClickDataSource;
-
-  MetronomeState _state = const MetronomeState();
-  Timer? _metronomePlayer;
 
   MetronomeRepositoryImpl({
     required AudioPlayerDataSource normalClickDataSource,
     required AudioPlayerDataSource accentClickDataSource,
   }) : _normalClickDataSource = normalClickDataSource,
        _accentClickDataSource = accentClickDataSource;
+  late final AudioPlayerDataSource _normalClickDataSource;
+  late final AudioPlayerDataSource _accentClickDataSource;
+
+  MetronomeState _state = const MetronomeState();
+  Timer? _metronomePlayer;
 
   @override
   Future<void> initialize() async {
@@ -79,7 +79,6 @@ class MetronomeRepositoryImpl implements IMetronomeRepository {
 
   @override
   MetronomeState changeBpm(int newBpm) {
-    _state = _state.changeBpm(newBpm);
-    return _state;
+    return _state.changeBpm(newBpm);
   }
 }

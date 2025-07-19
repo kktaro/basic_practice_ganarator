@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:metronome/metronome.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -35,23 +35,23 @@ void main() {
     test('初期状態が正しく設定される', () async {
       final state = await container.read(metronomeViewModelProvider.future);
 
-      expectLater(state.bpm, 120);
-      expectLater(state.isPlaying, false);
-      expectLater(state.currentBeat, 1);
-      expectLater(state.timeSignatureNumerator, 4);
-      expectLater(state.timeSignatureDenominator, 4);
+      await expectLater(state.bpm, 120);
+      await expectLater(state.isPlaying, false);
+      await expectLater(state.currentBeat, 1);
+      await expectLater(state.timeSignatureNumerator, 4);
+      await expectLater(state.timeSignatureDenominator, 4);
     });
 
     test('BPM変更が正常に動作する', () async {
-      final newBpm = 140;
+      const newBpm = 140;
       when(mockMetronomeRepository.changeBpm(newBpm)).thenAnswer((_) {
-        final state = MetronomeState();
+        const state = MetronomeState();
         return state.changeBpm(newBpm);
       });
 
       final viewModel = container.read(metronomeViewModelProvider.notifier);
 
-      viewModel.changeBpm(newBpm);
+      await viewModel.changeBpm(newBpm);
       await consumeInitialState();
       final state = await container.read(metronomeViewModelProvider.future);
 
@@ -59,14 +59,14 @@ void main() {
     });
 
     test('無効なBPMは変更されない', () async {
-      final newBpm = 20; // 無効なBPM
+      const newBpm = 20; // 無効なBPM
       when(
         mockMetronomeRepository.changeBpm(newBpm),
-      ).thenReturn(MetronomeState()..changeBpm(newBpm));
+      ).thenReturn(const MetronomeState()..changeBpm(newBpm));
 
       final viewModel = container.read(metronomeViewModelProvider.notifier);
 
-      viewModel.changeBpm(newBpm);
+      await viewModel.changeBpm(newBpm);
       await consumeInitialState();
       final state = await container.read(metronomeViewModelProvider.future);
 
@@ -76,7 +76,7 @@ void main() {
 
     test('メトロノーム開始が正常に動作する', () async {
       when(mockMetronomeRepository.playClick()).thenAnswer((_) {
-        final state = MetronomeState();
+        const state = MetronomeState();
         return state.start();
       });
 
@@ -91,11 +91,11 @@ void main() {
 
     test('メトロノーム停止が正常に動作する', () async {
       when(mockMetronomeRepository.playClick()).thenAnswer((_) {
-        final state = MetronomeState();
+        const state = MetronomeState();
         return state.start();
       });
       when(mockMetronomeRepository.stopClick()).thenAnswer((_) {
-        final state = MetronomeState();
+        const state = MetronomeState();
         return state.stop();
       });
 

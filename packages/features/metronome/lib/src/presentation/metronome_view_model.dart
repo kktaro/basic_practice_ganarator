@@ -1,7 +1,8 @@
 import 'dart:async';
+
+import 'package:metronome/src/data/metronome_repository_impl.dart';
 import 'package:metronome/src/presentation/metronome_screen_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../data/metronome_repository_impl.dart';
 
 part 'metronome_view_model.g.dart';
 
@@ -13,14 +14,12 @@ class MetronomeViewModel extends _$MetronomeViewModel {
     final metronomeRepository = ref.read(metronomeRepositoryProvider);
 
     // ViewModelが破棄される時のクリーンアップ
-    ref.onDispose(() {
-      metronomeRepository.dispose();
-    });
+    ref.onDispose(metronomeRepository.dispose);
 
     // 初期化
     await metronomeRepository.initialize();
 
-    return MetronomeScreenState();
+    return const MetronomeScreenState();
   }
 
   /// メトロノームを開始

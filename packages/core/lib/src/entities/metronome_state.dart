@@ -11,7 +11,6 @@ const int maxBpm = 300;
 /// メトロノームの状態を表すエンティティ
 @freezed
 abstract class MetronomeState with _$MetronomeState {
-  const MetronomeState._();
 
   const factory MetronomeState({
     @Default(120) int bpm,
@@ -24,6 +23,7 @@ abstract class MetronomeState with _$MetronomeState {
     /// 拍子の分母（例: 3/4拍子なら4）
     @Default(4) int timeSignatureDenominator, // 拍子の分母
   }) = _MetronomeState;
+  const MetronomeState._();
 
   /// BPMが有効な範囲内かチェック
   bool get isValidBpm => bpm >= minBpm && bpm <= maxBpm;

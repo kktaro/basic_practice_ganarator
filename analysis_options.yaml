@@ -1,4 +1,4 @@
-include: package:flutter_lints/flutter.yaml
+include: package:very_good_analysis/analysis_options.yaml
 
 analyzer:
   exclude:
@@ -9,5 +9,7 @@ analyzer:
 linter:
   rules:
     prefer_single_quotes: true
-    avoid_print: false
-    avoid_web_libraries_in_flutter: false
+    # 不要であるタイミングもあるため無効化
+    public_member_api_docs: false
+    # 用途単位で順番を決めるため無効化
+    sort_pub_dependencies: false

@@ -21,7 +21,7 @@ void main() {
       // 初期化されていない場合はdisposeをスキップ
       try {
         await dataSource.dispose();
-      } catch (e) {
+      } on Exception catch (_) {
         // 初期化されていない場合の例外は無視
       }
     });
@@ -37,8 +37,8 @@ void main() {
   group('JustAudioDataSourceImpl-Methods', () {
     setUp(() {
       mockAudioPlayer = MockAudioPlayer();
-      dataSource = JustAudioDataSourceImpl();
-      dataSource.initializePlayerForTest(mockAudioPlayer);
+      dataSource = JustAudioDataSourceImpl()
+        ..initializePlayerForTest(mockAudioPlayer);
     });
     tearDown(() async {
       await dataSource.dispose();

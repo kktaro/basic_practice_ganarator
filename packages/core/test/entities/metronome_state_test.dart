@@ -1,5 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:core/core.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('MetronomeState', () {
@@ -14,7 +14,7 @@ void main() {
     });
 
     test('BPM有効性チェック', () {
-      const validState = MetronomeState(bpm: 120);
+      const validState = MetronomeState();
       const invalidLowState = MetronomeState(bpm: 20);
       const invalidHighState = MetronomeState(bpm: 400);
 
@@ -25,28 +25,28 @@ void main() {
 
     test('拍間隔計算', () {
       const state60 = MetronomeState(bpm: 60);
-      const state120 = MetronomeState(bpm: 120);
+      const state120 = MetronomeState();
 
       expect(state60.beatIntervalMs, 1000); // 60BPM = 1秒間隔
       expect(state120.beatIntervalMs, 500); // 120BPM = 0.5秒間隔
     });
 
     test('次の拍に進む', () {
-      const state = MetronomeState(currentBeat: 1);
+      const state = MetronomeState();
       final nextState = state.nextBeat();
 
       expect(nextState.currentBeat, 2);
     });
 
     test('最後の拍から最初の拍に戻る', () {
-      const state = MetronomeState(currentBeat: 4, timeSignatureNumerator: 4);
+      const state = MetronomeState(currentBeat: 4);
       final nextState = state.nextBeat();
 
       expect(nextState.currentBeat, 1);
     });
 
     test('メトロノーム開始', () {
-      const state = MetronomeState(isPlaying: false);
+      const state = MetronomeState();
       final startedState = state.start();
 
       expect(startedState.isPlaying, true);
@@ -61,14 +61,14 @@ void main() {
     });
 
     test('BPM変更（有効な値）', () {
-      const state = MetronomeState(bpm: 120);
+      const state = MetronomeState();
       final changedState = state.changeBpm(140);
 
       expect(changedState.bpm, 140);
     });
 
     test('BPM変更（無効な値）', () {
-      const state = MetronomeState(bpm: 120);
+      const state = MetronomeState();
       final unchangedState = state.changeBpm(20); // 最小値未満
 
       expect(unchangedState.bpm, 120); // 変更されない

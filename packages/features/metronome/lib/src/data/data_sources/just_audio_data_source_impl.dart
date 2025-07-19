@@ -1,6 +1,6 @@
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:core/core.dart';
 
 /// just_audioライブラリを使用したAudioPlayerDataSourceの実装
 class JustAudioDataSourceImpl implements AudioPlayerDataSource {
