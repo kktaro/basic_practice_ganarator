@@ -21,7 +21,6 @@ class MetronomeRepository extends _$MetronomeRepository {
 
 /// MetronomeRepositoryの実装
 class MetronomeRepositoryImpl implements IMetronomeRepository {
-
   MetronomeRepositoryImpl({
     required AudioPlayerDataSource normalClickDataSource,
     required AudioPlayerDataSource accentClickDataSource,

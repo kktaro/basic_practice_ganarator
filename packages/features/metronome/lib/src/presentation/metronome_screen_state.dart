@@ -5,7 +5,6 @@ part 'metronome_screen_state.freezed.dart';
 
 @freezed
 abstract class MetronomeScreenState with _$MetronomeScreenState {
-
   const factory MetronomeScreenState({
     @Default(120) int bpm,
     @Default(false) bool isPlaying,

@@ -11,7 +11,6 @@ const int maxBpm = 300;
 /// メトロノームの状態を表すエンティティ
 @freezed
 abstract class MetronomeState with _$MetronomeState {
-
   const factory MetronomeState({
     @Default(120) int bpm,
     @Default(false) bool isPlaying,
