@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 extension WidgetTesterExtension on WidgetTester {
   /// PumpとThemeの設定を行うヘルパー関数
@@ -9,7 +9,9 @@ extension WidgetTesterExtension on WidgetTester {
       ProviderScope(
         child: MaterialApp(
           theme: dummyTheme,
-          home: widget,
+          home: Scaffold(
+            body: widget,
+          ),
         ),
       ),
     );
