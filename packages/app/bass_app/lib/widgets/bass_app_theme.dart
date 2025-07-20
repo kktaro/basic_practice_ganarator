@@ -3,6 +3,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'bass_app_theme.g.dart';
 
+const _seedColor = Color(0xFF004c71);
+
 @riverpod
 ThemeData lightBassAppTheme(Ref ref) {
   return ThemeData(
@@ -27,7 +29,7 @@ ColorScheme _getColorScheme(
   Brightness brightness,
 ) {
   return ColorScheme.fromSeed(
-    seedColor: const Color(0xFF004c71),
+    seedColor: _seedColor,
     brightness: brightness,
   );
 }
