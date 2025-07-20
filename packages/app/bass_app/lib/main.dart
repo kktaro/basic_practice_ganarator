@@ -2,6 +2,7 @@ import 'package:bass_app/widgets/bass_app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/practice.dart';
 
 void main() {
   runApp(
@@ -28,10 +29,7 @@ class MyApp extends ConsumerWidget {
       supportedLocales: const [
         Locale('ja', 'JP'),
       ],
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Bass App')),
-        body: const Center(child: Text('日本語の確認サンプル')),
-      ),
+      home: const PracticeScreen(),
     );
   }
 }
