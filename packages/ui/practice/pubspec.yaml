@@ -1,0 +1,25 @@
+name: practice
+description: "Practice Page module."
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: 
+
+flutter:
+  uses-material-design: true
+
+  module:
+    androidX: true
+    androidPackage: com.kktaro.practice
+    iosBundleIdentifier: com.kktaro.practice
