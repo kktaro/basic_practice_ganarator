@@ -3,7 +3,7 @@ description: "Practice Page module."
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.8.1
+  sdk: ">=3.8.1 <4.0.0"
 
 dependencies:
   flutter:
@@ -14,7 +14,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  very_good_analysis: 
+  very_good_analysis: ^9.0.0 
 
 flutter:
   uses-material-design: true
