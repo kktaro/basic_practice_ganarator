@@ -37,12 +37,12 @@ command:
 scripts:
   analyze:
     run: |
-      melos exec -c 1 -- "flutter analyze || dart analyze"
+      melos exec -- "flutter analyze || dart analyze"
     description: Run static analysis on all packages.
 
   lint:
     run: |
-      melos exec -c 1 -- "flutter analyze --fatal-infos || dart analyze --fatal-infos"
+      melos exec -- "flutter analyze --fatal-infos || dart analyze --fatal-infos"
     description: Run linting with very_good_analysis on all packages.
 
   format:
