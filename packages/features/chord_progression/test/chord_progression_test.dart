@@ -15,4 +15,11 @@ void main() {
     expect(ChordType.dominant7.symbol, '7');
     expect(ChordType.major7.symbol, 'M7');
   });
+
+  test('Chord can be created and has correct symbol', () {
+    const chord = Chord(root: Note.c, type: ChordType.major);
+    expect(chord.symbol, 'C');
+    expect(chord.root, Note.c);
+    expect(chord.type, ChordType.major);
+  });
 }
