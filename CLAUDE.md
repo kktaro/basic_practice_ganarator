@@ -85,7 +85,7 @@ analysis_options.yaml
 melos.yaml
 pubspec.yaml
 packages/
-├──bass_app/
+├── app/bass_app/
 │   ├── pubspec.yaml
 │   ├── android/
 │   ├── ios/
@@ -100,6 +100,8 @@ packages/
 ├── features/
 │   ├── metronome/
 │   └── chord_progression/
+├── ui/
+│   ├── practice/
 ```
 
 ## 設計方針
