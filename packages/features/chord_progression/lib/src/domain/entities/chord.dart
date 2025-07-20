@@ -1,6 +1,6 @@
 import 'package:chord_progression/src/domain/entities/chord_type.dart';
 import 'package:chord_progression/src/domain/entities/note.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 @immutable
 class Chord {
