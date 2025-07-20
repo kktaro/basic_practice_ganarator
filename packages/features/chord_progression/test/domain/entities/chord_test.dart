@@ -33,9 +33,27 @@ void main() {
       expect(chord1.hashCode, equals(chord2.hashCode));
     });
 
-    test('toString returns correct representation', () {
-      const chord = Chord(root: Note.c, type: ChordType.minor);
-      expect(chord.toString(), 'Chord(symbol: Cm)');
+    group('toString returns correct representation', () {
+      const cases = [
+        (Chord(root: Note.c, type: ChordType.major), 'C'),
+        (Chord(root: Note.d, type: ChordType.major), 'D'),
+        (Chord(root: Note.e, type: ChordType.major), 'E'),
+        (Chord(root: Note.f, type: ChordType.major), 'F'),
+        (Chord(root: Note.g, type: ChordType.major), 'G'),
+        (Chord(root: Note.a, type: ChordType.major), 'A'),
+        (Chord(root: Note.b, type: ChordType.major), 'B'),
+        (Chord(root: Note.c, type: ChordType.minor), 'Cm'),
+        (Chord(root: Note.c, type: ChordType.dominant7), 'C7'),
+        (Chord(root: Note.c, type: ChordType.major7), 'CM7'),
+      ];
+      for (final testCase in cases) {
+        final chord = testCase.$1;
+        final expectedString = testCase.$2;
+
+        test('toString returns $expectedString for $chord', () {
+          expect(chord.toString(), expectedString);
+        });
+      }
     });
   });
 }

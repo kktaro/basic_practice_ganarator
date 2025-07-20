@@ -26,5 +26,5 @@ class Chord {
   int get hashCode => root.hashCode ^ type.hashCode;
 
   @override
-  String toString() => 'Chord(symbol: $symbol)';
+  String toString() => symbol;
 }
