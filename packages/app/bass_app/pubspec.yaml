@@ -24,6 +24,8 @@ dependencies:
     path: ../../features/metronome
   chord_progression:
     path: ../../features/chord_progression
+  practice:
+    path: ../../ui/practice
 
 dev_dependencies:
   flutter_test:

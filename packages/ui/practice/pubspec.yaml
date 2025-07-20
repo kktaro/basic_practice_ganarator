@@ -1,6 +1,6 @@
 name: practice
 description: "Practice Page module."
-version: 1.0.0+1
+publish_to: none
 
 environment:
   sdk: ">=3.8.1 <4.0.0"
@@ -8,13 +8,27 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.8
+  flutter_riverpod: ^3.0.0-dev.16
+  riverpod_annotation: ^3.0.0-dev.16
+
+  # Local packages
+  core:
+    path: ../../core
+  metronome:
+    path: ../../features/metronome
+  chord_progression:
+    path: ../../features/chord_progression
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  very_good_analysis: ^9.0.0 
+  very_good_analysis: ^9.0.0
+  riverpod_generator: ^3.0.0-dev.16
+  riverpod_lint: ^3.0.0-dev.16
+  build_runner: ^2.4.12
+  freezed: ^3.0.6
+  mockito: ^5.4.6
 
 flutter:
   uses-material-design: true
