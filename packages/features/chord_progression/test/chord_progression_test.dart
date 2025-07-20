@@ -7,4 +7,12 @@ void main() {
     expect(Note.c.symbol, 'C');
     expect(Note.g.symbol, 'G');
   });
+
+  test('ChordType enum has correct values', () {
+    expect(ChordType.values.length, 4);
+    expect(ChordType.major.symbol, '');
+    expect(ChordType.minor.symbol, 'm');
+    expect(ChordType.dominant7.symbol, '7');
+    expect(ChordType.major7.symbol, 'M7');
+  });
 }
