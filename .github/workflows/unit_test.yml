@@ -38,7 +38,7 @@ jobs:
       run: melos run format
 
     - name: Run static analysis
-      run: melos run analyze
+      run: melos run lint
 
     - name: Run tests
       run: melos run test
