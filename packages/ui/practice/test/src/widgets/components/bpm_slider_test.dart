@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:practice/src/widgets/bpm_slider.dart';
+import 'package:practice/src/widgets/components/bpm_slider.dart';
 
-import '../../widget_test_utils.dart';
+import '../../../widget_test_utils.dart';
 
 void main() {
   group('VerticalSlider', () {

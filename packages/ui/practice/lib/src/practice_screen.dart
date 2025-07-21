@@ -2,7 +2,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:practice/src/widgets/bpm_slider.dart';
+import 'package:practice/src/widgets/components/bpm_slider.dart';
 
 class PracticeScreen extends HookConsumerWidget {
   const PracticeScreen({super.key});
