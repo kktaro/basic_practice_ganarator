@@ -1,8 +1,7 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:practice/src/widgets/components/bpm_slider.dart';
+import 'package:practice/src/widgets/area/bpm_setting_area.dart';
 
 class PracticeScreen extends HookConsumerWidget {
   const PracticeScreen({super.key});
@@ -13,11 +12,9 @@ class PracticeScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Bass App')),
-      body: BpmSlider(
-        minValue: minBpm,
-        maxValue: maxBpm,
-        currentValue: bpm.value,
-        onChanged: (value) {
+      body: BpmSettingArea(
+        currentBpm: bpm.value,
+        onBpmChanged: (value) {
           bpm.value = value;
         },
       ),
