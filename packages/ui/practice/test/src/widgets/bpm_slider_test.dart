@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:practice/src/widgets/vertical_slider.dart';
+import 'package:practice/src/widgets/bpm_slider.dart';
 
 import '../../widget_test_utils.dart';
 
@@ -10,16 +10,13 @@ void main() {
       WidgetTester tester,
     ) async {
       await tester.setupTargetWidget(
-        VerticalSlider(
+        BpmSlider(
           minValue: 0,
           maxValue: 100,
           currentValue: 50,
           onChanged: (value) {},
         ),
       );
-
-      // RotatedBoxが存在することを確認
-      expect(find.byType(RotatedBox), findsOneWidget);
 
       // Sliderが存在することを確認
       expect(find.byType(Slider), findsOneWidget);
@@ -38,7 +35,7 @@ void main() {
       var changedValue = 5;
 
       await tester.setupTargetWidget(
-        VerticalSlider(
+        BpmSlider(
           minValue: 0,
           maxValue: 10,
           currentValue: changedValue,
@@ -68,7 +65,7 @@ void main() {
       var changedValue = 5;
 
       await tester.setupTargetWidget(
-        VerticalSlider(
+        BpmSlider(
           minValue: lowerLimit,
           maxValue: 10,
           currentValue: changedValue,
@@ -83,7 +80,7 @@ void main() {
       expect(sliderFinder, findsOneWidget);
 
       // スライダーの値を変更
-      await tester.drag(sliderFinder, const Offset(0, 1000));
+      await tester.drag(sliderFinder, const Offset(-1000, 0));
       await tester.pumpAndSettle();
 
       // minValueより小さい値に変更されないことを確認
@@ -98,7 +95,7 @@ void main() {
       var changedValue = 5;
 
       await tester.setupTargetWidget(
-        VerticalSlider(
+        BpmSlider(
           minValue: 0,
           maxValue: higherLimit,
           currentValue: changedValue,
@@ -113,10 +110,10 @@ void main() {
       expect(sliderFinder, findsOneWidget);
 
       // スライダーの値を変更
-      await tester.drag(sliderFinder, const Offset(0, -1000));
+      await tester.drag(sliderFinder, const Offset(1000, 0));
       await tester.pumpAndSettle();
 
-      // minValueより小さい値に変更されないことを確認
+      // minValueより大きい値に変更されないことを確認
       expect(changedValue, equals(higherLimit));
     });
 
@@ -124,7 +121,7 @@ void main() {
       WidgetTester tester,
     ) async {
       await tester.setupTargetWidget(
-        VerticalSlider(
+        BpmSlider(
           minValue: 20,
           maxValue: 200,
           currentValue: 100,
@@ -137,22 +134,6 @@ void main() {
       expect(slider.min, equals(20.0));
       expect(slider.max, equals(200.0));
       expect(slider.divisions, equals(180));
-    });
-
-    testWidgets('rotated box has correct quarter turns', (
-      WidgetTester tester,
-    ) async {
-      await tester.setupTargetWidget(
-        VerticalSlider(
-          minValue: 0,
-          maxValue: 100,
-          currentValue: 50,
-          onChanged: (value) {},
-        ),
-      );
-
-      final rotatedBox = tester.widget<RotatedBox>(find.byType(RotatedBox));
-      expect(rotatedBox.quarterTurns, equals(3));
     });
   });
 }
