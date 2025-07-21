@@ -113,7 +113,7 @@ void main() {
       await tester.drag(sliderFinder, const Offset(1000, 0));
       await tester.pumpAndSettle();
 
-      // minValueより大きい値に変更されないことを確認
+      // maxValueより大きい値に変更されないことを確認
       expect(changedValue, equals(higherLimit));
     });
 
