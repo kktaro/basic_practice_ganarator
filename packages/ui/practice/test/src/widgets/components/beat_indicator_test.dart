@@ -6,61 +6,51 @@ import '../../../widget_test_utils.dart';
 
 void main() {
   group('BeatIndicator', () {
+    bool inactivePredicate(Widget widget) =>
+        widget is Container &&
+        widget.decoration ==
+            const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.grey,
+            );
+
     testWidgets('現在の拍が正しく表示される', (tester) async {
-      const currentBeat = 3;
+      const currentBeat = 2;
 
       await tester.setupTargetWidget(
-        const BeatIndicator(currentBeat: currentBeat),
+        const BeatIndicator(
+          maxBeats: 4,
+          currentBeat: currentBeat,
+        ),
       );
 
-      expect(find.text('3'), findsOneWidget);
+      expect(find.byWidgetPredicate(inactivePredicate), findsNWidgets(2));
     });
 
-    testWidgets('異なる拍数が正しく表示される', (tester) async {
-      const testCases = [1, 2, 3, 4];
+    testWidgets('現在の拍が正しく表示される', (tester) async {
+      const currentBeat = 4;
 
-      for (final beat in testCases) {
-        await tester.setupTargetWidget(
-          BeatIndicator(currentBeat: beat),
-        );
-
-        expect(find.text(beat.toString()), findsOneWidget);
-      }
-    });
-
-    testWidgets('Textウィジェットが表示される', (tester) async {
       await tester.setupTargetWidget(
-        const BeatIndicator(currentBeat: 1),
+        const BeatIndicator(
+          maxBeats: 4,
+          currentBeat: currentBeat,
+        ),
       );
 
-      expect(find.byType(Text), findsOneWidget);
+      expect(find.byWidgetPredicate(inactivePredicate), findsNothing);
     });
 
-    testWidgets('適切なスタイルが適用されている', (tester) async {
+    testWidgets('最大拍数によりライトの数が変更されること', (tester) async {
+      const currentBeat = 2;
+
       await tester.setupTargetWidget(
-        const BeatIndicator(currentBeat: 1),
+        const BeatIndicator(
+          maxBeats: 10,
+          currentBeat: currentBeat,
+        ),
       );
 
-      final text = tester.widget<Text>(find.byType(Text));
-
-      expect(text.style?.color, isNotNull);
-      expect(text.style?.fontWeight, FontWeight.bold);
-    });
-
-    testWidgets('0の拍も正しく表示される', (tester) async {
-      await tester.setupTargetWidget(
-        const BeatIndicator(currentBeat: 0),
-      );
-
-      expect(find.text('0'), findsOneWidget);
-    });
-
-    testWidgets('大きな数値も正しく表示される', (tester) async {
-      await tester.setupTargetWidget(
-        const BeatIndicator(currentBeat: 999),
-      );
-
-      expect(find.text('999'), findsOneWidget);
+      expect(find.byWidgetPredicate(inactivePredicate), findsNWidgets(8));
     });
   });
 }

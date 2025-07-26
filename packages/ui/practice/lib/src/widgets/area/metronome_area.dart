@@ -18,7 +18,10 @@ class MetronomeArea extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        BeatIndicator(currentBeat: currentBeat),
+        BeatIndicator(
+          maxBeats: 4,
+          currentBeat: currentBeat,
+        ),
         const SizedBox(height: 16),
         MetronomePlayButton(
           isPlaying: isPlaying,

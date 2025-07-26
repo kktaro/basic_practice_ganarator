@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:practice/src/widgets/area/metronome_area.dart';
 import 'package:practice/src/widgets/components/beat_indicator.dart';
@@ -74,6 +75,14 @@ void main() {
     });
 
     testWidgets('異なる拍数でも正しく表示される', (tester) async {
+      bool inactivePredicate(Widget widget) =>
+          widget is Container &&
+          widget.decoration ==
+              const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.grey,
+              );
+
       const testBeats = [1, 2, 3, 4];
 
       for (final beat in testBeats) {
@@ -85,7 +94,10 @@ void main() {
           ),
         );
 
-        expect(find.text(beat.toString()), findsOneWidget);
+        expect(
+          find.byWidgetPredicate(inactivePredicate),
+          findsNWidgets(4 - beat),
+        );
       }
     });
 
