@@ -26,7 +26,7 @@ dev_dependencies:
   json_serializable: ^6.8.0
   riverpod_generator: ^3.0.0-dev.16
   flutter_gen_runner: ^5.10.0
-  mockito: ^5.4.6 
+  mockito: ^5.4.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -41,6 +41,8 @@ flutter_gen:
   assets:
     outputs:
       package_parameter_enabled: true
+
+resolution: workspace
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/to/asset-from-package
