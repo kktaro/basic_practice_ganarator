@@ -4,11 +4,112 @@ description: A monorepo for basic practice generator applications
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.8.0 <4.0.0"
 
 dev_dependencies:
-  melos: ^6.3.3
+  melos: ^7.1.1
   very_good_analysis: ^10.0.0
 
 flutter:
   uses-material-design: true
+
+workspace:
+  - packages/app/bass_app
+  - packages/core
+  - packages/features/chord_progression
+  - packages/features/metronome
+  - packages/ui/practice
+
+melos:
+  command:
+  version:
+    branch: main
+    message: "chore(release): publish packages"
+    includeScopes: false
+
+  bootstrap:
+    runPubGetInParallel: false
+    usePubspecOverrides: true
+    environment:
+      sdk: ">=3.8.0 <4.0.0"
+      flutter: ">=3.25.4"
+
+    dependencies:
+      hooks_riverpod: ^3.0.0-dev.16
+      flutter_hooks: ^0.21.2
+      riverpod_annotation: ^3.0.0-dev.16
+      just_audio: ^0.10.4
+      google_mobile_ads: ^6.0.0
+      freezed_annotation: ^3.0.6
+      json_annotation: ^4.9.0
+      carousel_slider: ^5.1.1
+
+    dev_dependencies:
+      very_good_analysis: ^9.0.0
+      riverpod_generator: ^3.0.0-dev.16
+      riverpod_lint: ^3.0.0-dev.16
+      build_runner: ^2.4.12
+      freezed: ^3.0.6
+      json_serializable: ^6.8.0
+      mockito: ^5.4.6
+      audio_session: ^0.2.2
+
+  scripts:
+    analyze:
+      run: |
+        melos exec -- "flutter analyze || dart analyze"
+      description: Run static analysis on all packages.
+
+    lint:
+      run: |
+        melos exec -- "flutter analyze --fatal-infos || dart analyze --fatal-infos"
+      description: Run linting with very_good_analysis on all packages.
+
+    format:
+      run: dart format --set-exit-if-changed .
+      description: Format code in all packages.
+
+    fix:
+      run: melos exec -- "dart fix --apply"
+      description: Run fix with apply option.
+
+    test:
+      run: |
+        melos exec -c 1 -- "flutter test || dart test"
+      description: Run tests in all packages (Flutter and Dart).
+
+    test:flutter:
+      run: flutter test
+      description: Run tests in Flutter packages only.
+      packageFilters:
+        flutter: true
+
+    test:dart:
+      run: dart test
+      description: Run tests in Dart packages only.
+      packageFilters:
+        flutter: false
+
+    test:unit:
+      run: |
+        melos exec -c 1 -- "flutter test test/unit || dart test test/unit"
+      description: Run unit tests in all packages.
+      packageFilters:
+        dirExists: test/unit
+
+    clean:
+      run: flutter clean
+      description: Clean all packages.
+      packageFilters:
+        flutter: true
+
+    pub:get:
+      run: |
+        melos exec -c 1 -- "flutter pub get || dart pub get"
+      description: Run pub get in all packages.
+
+    generate:
+      run: melos exec -- "flutter pub run build_runner build -d"
+      description: Run build_runner in all packages.
+      packageFilters:
+        dependsOn: "build_runner"
