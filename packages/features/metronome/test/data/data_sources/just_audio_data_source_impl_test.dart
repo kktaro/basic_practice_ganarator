@@ -34,11 +34,11 @@ void main() {
     });
   });
 
-  group('JustAudioDataSourceImpl-Methods', () {
-    setUp(() {
+  group('JustAudioDataSourceImpl-Methods', () async {
+    setUp(() async {
       mockAudioPlayer = MockAudioPlayer();
-      dataSource = JustAudioDataSourceImpl()
-        ..initializePlayerForTest(mockAudioPlayer);
+      dataSource = JustAudioDataSourceImpl();
+      await dataSource.initializePlayerForTest(mockAudioPlayer);
     });
     tearDown(() async {
       await dataSource.dispose();

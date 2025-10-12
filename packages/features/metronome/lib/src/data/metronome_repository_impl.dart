@@ -55,7 +55,7 @@ class MetronomeRepositoryImpl implements IMetronomeRepository {
       (_) {
         debugPrint('onBeat! currentBeat: ${_state.currentBeat}');
         _state = _state.nextBeat();
-        _normalClickDataSource.play();
+        unawaited(_normalClickDataSource.play());
       },
     );
     return _state;
