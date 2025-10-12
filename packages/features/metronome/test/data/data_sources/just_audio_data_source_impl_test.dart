@@ -7,7 +7,7 @@ import 'package:mockito/mockito.dart';
 @GenerateNiceMocks([MockSpec<AudioPlayer>()])
 import 'just_audio_data_source_impl_test.mocks.dart';
 
-void main() {
+void main() async {
   late JustAudioDataSourceImpl dataSource;
   late AudioPlayer mockAudioPlayer;
 
@@ -34,7 +34,7 @@ void main() {
     });
   });
 
-  group('JustAudioDataSourceImpl-Methods', () async {
+  group('JustAudioDataSourceImpl-Methods', () {
     setUp(() async {
       mockAudioPlayer = MockAudioPlayer();
       dataSource = JustAudioDataSourceImpl();
