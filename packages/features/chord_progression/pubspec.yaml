@@ -16,15 +16,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  very_good_analysis: ^9.0.0
+  very_good_analysis: ^10.0.0
   mockito: ^5.4.6
   build_runner: ^2.4.12
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter packages.
-flutter:
 
 resolution: workspace
   # To add assets to your package, add an assets section, like this:
