@@ -1,0 +1,10 @@
+[tools]
+flutter = "3.38.5"
+java = "21"
+ruby = "3.4.8"
+
+[hooks]
+postinstall = [
+    "echo 🔧 Running post-install hooks...",
+    "dart pub global activate melos && ✅ Melos activated successfully!"
+]

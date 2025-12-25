@@ -1,8 +1,9 @@
 pre-commit:
+  parallel: true
   commands:
     1_analyze:
-      run: melos analyze
+      run: flutter analyze
     2_format:
-      run: melos format
+      run: dart format --set-exit-if-changed .
     3_fix:
-      run: melos fix
+      run: dart fix --apply
