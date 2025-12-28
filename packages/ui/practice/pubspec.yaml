@@ -12,7 +12,7 @@ dependencies:
   hooks_riverpod: ^3.0.0-dev.16
   flutter_hooks: ^0.21.2
 
-  riverpod_annotation: ^3.0.0-dev.16
+  riverpod_annotation: 4.0.0
   carousel_slider: ^5.1.1
 
   # Local packages

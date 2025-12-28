@@ -13,7 +13,7 @@ dependencies:
   core:
     path: ../../core
   flutter_riverpod: ^3.0.0-dev.16
-  riverpod_annotation: ^3.0.0-dev.16
+  riverpod_annotation: 4.0.0
   just_audio: ^0.10.4
   freezed_annotation: ^3.0.6
 
