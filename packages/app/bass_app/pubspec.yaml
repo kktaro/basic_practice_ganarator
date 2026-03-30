@@ -15,7 +15,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   flutter_riverpod: ^3.0.0-dev.16
-  riverpod_annotation: ^3.0.0-dev.16
+  riverpod_annotation: 4.0.0
 
   # Local packages
   core:
